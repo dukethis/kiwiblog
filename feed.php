@@ -7,7 +7,7 @@
 	$TAGS   = ["information","technologies","programming","web","social","science","art"];
 
 	// JSON DATA TREE
-	$fn = "data.json";
+	$fn = "data/data.json";
 	$fd = fopen( $fn,"r");
 	$items = fread( $fd, filesize($fn) );
 	fclose($fd);

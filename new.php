@@ -57,7 +57,7 @@ if ($title && $date && $author && $content) {
 	$key = base64_encode($key);
 	$items->$key = $item;
 	$jsondata = json_encode($items);
-	$fn = "data.json";
+	$fn = "data/data.json";
 	$fd = fopen( $fn,"w");
 	$fc = fwrite( $fd, $jsondata );
 	fclose($fd);
@@ -71,7 +71,7 @@ if ($title && $date && $author && $content) {
 <html>
 	<head>
 		<title>openblog/new</title>
-		<link rel="stylesheet" type="text/css" href="blog.css"/>
+		<link rel="stylesheet" type="text/css" href="static/blog.css"/>
 	</head>
 	<body>
 		<section class="main">
@@ -88,9 +88,7 @@ if ($title && $date && $author && $content) {
 			</form>
 			<hr/>
 			<div id="output">
-			<?php
-				echo $my_html;
-			?>
+				<?php echo $my_html; ?>
 			</div>
 			<hr/>
 			<section class="link">

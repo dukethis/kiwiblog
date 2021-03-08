@@ -18,7 +18,7 @@
 	if ( !file_exists( $author.'-'.$title.'.md' )) { header('Location: /'); exit; }
 
 	// JSON DATA TREE LOADING
-	$fn = "data.json";
+	$fn = "data/data.json";
 	$fd = fopen( $fn,"r");
 	$fc = fread( $fd, filesize($fn) );
 	fclose($fd);
@@ -55,7 +55,7 @@
 				// CREDITS TO MICHEL FORTIN FOR THE MARKDOWN-HTML TRANSCRIPT
 				// SOURCE: https://github.com/michelf/php-markdown
 				include "lib/Michelf-markdown.php";
-				use Michelf\Markdown;
+				use Michelf\MarkdownExtra;
 				// TARGET FILE TO RENDER
 				$fn = $author."-".$title.".md";
 				$fd = fopen($fn,"r");
@@ -63,7 +63,7 @@
 				$my_text = fread($fd, filesize($fn));
 				fclose($fd);
 				// TRANSCRIPT TO HTML
-				$my_html = Markdown::defaultTransform($my_text);
+				$my_html = MarkdownExtra::defaultTransform($my_text);
 				echo $my_html;
 			?>
 		</section>

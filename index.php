@@ -9,7 +9,7 @@
         <h1><a class="index" href="javascript:switch_sort()"><text style="text-transform:uppercase;opacity:0.5">open</text>BLOG</h1>
         <?php
 	// JSON DATA TREE LOADING
-	$fn = "data.json";
+	$fn = "data/data.json";
 	$fd = fopen( $fn,"r");
 	$fc = fread( $fd, filesize($fn) );
 	fclose($fd);
