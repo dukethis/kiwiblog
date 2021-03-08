@@ -1,3 +1,4 @@
+
 # kiwiblog : another KISS weblog
 ## Features
 - lightweight
@@ -23,3 +24,6 @@ You can access the publication directly using the following **title** parameter 
 ```
 /weblog?title=author-this-is-the-title
 ```
+
+### Publication screenshot
+![Publication screenshot](https://user-images.githubusercontent.com/16149692/110274984-6c30e180-7fd0-11eb-8ca1-96178f108969.png "Publication Page")
