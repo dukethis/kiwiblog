@@ -10,7 +10,7 @@
 | URI | ACTION
 | ---- | ----
 | index.php | Serves the log index
-| weblog.php | Generates HTML content
+| blog.php | Generates HTML content
 | new.php | Access the 'new log' form
 | feed.php | Generates a XML Feed
 | feed.php?json | Generates a JSON Feed
