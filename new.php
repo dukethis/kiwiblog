@@ -1,12 +1,7 @@
 <?php
-// CREDITS TO MICHEL FORTIN FOR THE MARKDOWN-HTML TRANSCRIPT
-// SOURCE: https://github.com/michelf/php-markdown
-include "lib/Michelf-markdown.php";
-use Michelf\Markdown;
-
 
 // JSON DATA TREE
-$fn = "data.json";
+$fn = "data/data.json";
 $fd = fopen( $fn,"r");
 $fc = fread( $fd, filesize($fn) );
 fclose($fd);
@@ -20,20 +15,15 @@ $date    = isset($_GET["date"]) ? $_GET["date"] : null;
 $date    = $date ? $date : (isset($_GET["pubdate"]) ? $_GET["pubdate"] : Date('Y-m-d'));
 $tags    = isset($_GET["tags"]) ? explode(' ',$_GET["tags"]) : null;
 
-// SAMPLE MARKDOWN CONTENT
-$my_text = "# Chapter 1
-# Chapter 2
-# Chapter 3";
-// MARKDOWN TRANSCRIPT TO HTML
-$my_html = Markdown::defaultTransform($my_text);
-
+// DEFAULT CONTENT (FILE HAS TO EXIST:)
+$textform_content_fn = 'example.md';
 
 // WHEN VARIABLES ARE SET UP: GOGO MY GENERATION
 if ($title && $date && $author && $content) {
 	// TITLE CAN BE PASSED WITH ' ' SEPARATOR OR '-' BY DEFAULT
 	$str_title = implode('-',explode(' ', strtolower($title)));
 	// TARGET
-	$fn = $author.'-'.$str_title.'.md';
+	$fn = $str_title.'.md';
 	// TARGET EXISTS
 	if (file_exists($fn)) {
 		echo 'Existing file: '.$fn;
@@ -53,7 +43,7 @@ if ($title && $date && $author && $content) {
 	);
 	// JSON TREE UPDATE
 	// UNIQUE KEY GENERATION
-	$key = $author.'-'.$str_title; //implode('-',explode(' ',$title));
+	$key = implode('-',explode(' ',$title));
 	$key = base64_encode($key);
 	$items->$key = $item;
 	$jsondata = json_encode($items);
@@ -63,7 +53,7 @@ if ($title && $date && $author && $content) {
 	fclose($fd);
 
 	// VISIT THE NEW PAGE
-	header('Location: /weblog?title='.base64_decode($key));
+	header('Location: /blog?title='.$str_title);
 	exit;
 }
 ?>
@@ -80,20 +70,14 @@ if ($title && $date && $author && $content) {
 				<input type="date" id="date" name="date" value="<?php echo $date; ?>" />
 				<input type="title" id="title" name="title" placeholder="log entry title" required autofocus value=""/>
 				<input type="name" id="author" name="author" placeholder="author" value="" required />
-				<textarea id="content" name="content" placeholder="<?php echo $my_text; ?>" required></textarea>
+				<textarea id="content" name="content" placeholder='{{include "<?php echo $textform_content_fn; ?>" }}' required></textarea>
 				<input type="text" id="tags" name="tags" placeholder="<?php echo $tags; ?>"/>
 				<p>
 					<button id="publish" type="submit" style="font-size:1.30rem" title="&#128065;&nbsp;Veuillez relire la publication et corrigez un maximum les erreurs de frappe &#9997;. Merci &#9996;">publier</button>
 				</p>
 			</form>
 			<hr/>
-			<div id="output">
-				<?php echo $my_html; ?>
-			</div>
-			<hr/>
-			<section class="link">
-				<a href="/" title="Home Page"><img alt="booknote index" width="30" src="static/icon_home.svg"/></a>
-			</section>
+			<div id="output">{{include "<?php echo $textform_content_fn; ?>" | markdown}}</div>
 		</section>
 	</body>
 </html>

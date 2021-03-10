@@ -1,10 +1,9 @@
 <?php
-
 	// HARDCODED CHANNEL DEFAULTS
-	$TITLE  = "openblog";
+	$TITLE  = "openblog for all";
 	$HOST   = "";
-	$AUTHOR = "weblog";
-	$TAGS   = ["information","technologies","programming","web","social","science","art"];
+	$AUTHOR = "public";
+	$TAGS   = ["information","technologies","web","common","social","sharing"];
 
 	// JSON DATA TREE
 	$fn = "data/data.json";
@@ -35,8 +34,8 @@
 	foreach ($items as $item) {
 		$xmlitem = $chan->addChild("item");
 		$xmlitem->addChild("title",  $item->title);
-		$xmlitem->addChild("link",   $HOST."/weblog?title=".implode('-',explode(' ',$item->title)));
-		$xmlitem->addChild("guid",   $HOST."/weblog?title=".implode('-',explode(' ',$item->title)));
+		$xmlitem->addChild("link",   $HOST."/blog?title=".implode('-',explode(' ',$item->title)));
+		$xmlitem->addChild("guid",   $HOST."/blog?title=".implode('-',explode(' ',$item->title)));
 		$xmlitem->addChild("pubdate", Date(DATE_RFC2822,strtotime($item->pubdate)));
 		$xmlitem->addChild("created", Date(DATE_RFC2822,strtotime($item->pubdate)));
 		foreach ($item->tags as $tag) {
